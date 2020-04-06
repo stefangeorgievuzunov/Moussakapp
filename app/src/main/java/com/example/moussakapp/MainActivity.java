@@ -41,9 +41,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //FOR TESTING ONLY !!
         List<Ingredient> ingredientList=new ArrayList<>();
         ingredientList.add(new Ingredient("chesun","3 lujici bash baq golemi"));
-        Recipe recipe=new Recipe("skembke chorba","Tradicionna bulgarska shkembe chorba","https://www.fares-foods.com/Products/soup/shkembe_chorba.png",
+        Recipe recipe=new Recipe("shkembe chorba","Tradicionna bulgarska shkembe chorba","https://www.fares-foods.com/Products/soup/shkembe_chorba.png",
                 10000,ingredientList);
 
         System.out.println(recipe.getName());
