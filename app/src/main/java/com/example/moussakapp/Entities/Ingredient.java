@@ -1,5 +1,6 @@
 package com.example.moussakapp.Entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -9,9 +10,13 @@ public class Ingredient {
     private Integer ingredientId;
     private String name;
     private String quantity;
-    private String description;
 
-    @PrimaryKey
+    public Ingredient(String name, String quantity) {
+        this.name = name;
+        this.quantity = quantity;
+    }
+
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ingredient_id")
     public Integer getIngredientId() {
         return ingredientId;
@@ -38,4 +43,11 @@ public class Ingredient {
     public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return quantity + ' ' + name;
+    }
 }
+

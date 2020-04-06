@@ -1,5 +1,6 @@
 package com.example.moussakapp.Daoes;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -11,8 +12,8 @@ import java.util.List;
 @Dao
 public interface IngredientDao {
     @Query("SELECT * FROM  ingredients")
-    List<Ingredient> getAll();
+    LiveData<List<Ingredient>> getAll();
 
     @Insert
-    void insertAll(Ingredient ingridients);
+    void insert(Ingredient ingridient);
 }

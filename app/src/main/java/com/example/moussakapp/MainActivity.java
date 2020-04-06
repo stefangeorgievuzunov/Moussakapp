@@ -2,7 +2,7 @@ package com.example.moussakapp;
 
 import android.os.Bundle;
 
-import com.example.moussakapp.Data.AppDatabase;
+import com.example.moussakapp.Data.RecipeDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -19,9 +19,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "recipeDb").build();
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);

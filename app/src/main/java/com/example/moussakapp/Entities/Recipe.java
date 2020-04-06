@@ -5,7 +5,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.Relation;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity (tableName = "recipes")
@@ -14,11 +13,10 @@ public class Recipe {
     private String name;
     private String description;
     private String imageUrl;
-    private LocalDate addedOn;
+    private int addedOn;
     private List<Ingredient> ingredientList;
 
-    public Recipe(Integer recipeId, String name, String description, String imageUrl, LocalDate addedOn, List<Ingredient> ingredientList) {
-        this.recipeId = recipeId;
+    public Recipe( String name, String description, String imageUrl, int addedOn, List<Ingredient> ingredientList) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -26,7 +24,7 @@ public class Recipe {
         this.ingredientList = ingredientList;
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "recipe_id")
     public Integer getRecipeId() {
         return recipeId;
@@ -64,11 +62,11 @@ public class Recipe {
     }
 
     @ColumnInfo(name = "added_on")
-    public LocalDate getAddedOn() {
+    public int getAddedOn() {
         return addedOn;
     }
 
-    public void setAddedOn(LocalDate addedOn) {
+    public void setAddedOn(int addedOn) {
         this.addedOn = addedOn;
     }
 
