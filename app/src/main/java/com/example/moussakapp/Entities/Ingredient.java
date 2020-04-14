@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey;
 
 @Entity (tableName = "ingredients")
 public class Ingredient {
-    private Integer ingredientId;
+    @PrimaryKey(autoGenerate = true)
+    public long ingredientId;
     private String name;
     private String quantity;
 
@@ -16,13 +17,12 @@ public class Ingredient {
         this.quantity = quantity;
     }
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "ingredient_id")
-    public Integer getIngredientId() {
+
+    public long getIngredientId() {
         return ingredientId;
     }
 
-    public void setIngredientId(Integer ingredientId) {
+    public void setIngredientId(long ingredientId) {
         this.ingredientId = ingredientId;
     }
 

@@ -3,34 +3,30 @@ package com.example.moussakapp.Entities;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.Relation;
-
-import java.util.List;
 
 @Entity (tableName = "recipes")
 public class Recipe {
-    private Integer recipeId;
+    @PrimaryKey(autoGenerate = true)
+    public long recipeId;
     private String name;
     private String description;
     private String imageUrl;
     private int addedOn;
-    private List<Ingredient> ingredientList;
 
-    public Recipe( String name, String description, String imageUrl, int addedOn, List<Ingredient> ingredientList) {
+    public Recipe( String name, String description, String imageUrl, int addedOn) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
         this.addedOn = addedOn;
-        this.ingredientList = ingredientList;
     }
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "recipe_id")
-    public Integer getRecipeId() {
+
+
+    public long getRecipeId() {
         return recipeId;
     }
 
-    public void setRecipeId(Integer recipeId) {
+    public void setRecipeId(long recipeId) {
         this.recipeId = recipeId;
     }
 
@@ -70,12 +66,4 @@ public class Recipe {
         this.addedOn = addedOn;
     }
 
-    @Relation(parentColumn = "recipeId",entityColumn = "ingredientId")
-    public List<Ingredient> getIngredientList() {
-        return ingredientList;
-    }
-
-    public void setIngredientList(List<Ingredient> ingredientList) {
-        this.ingredientList = ingredientList;
-    }
 }

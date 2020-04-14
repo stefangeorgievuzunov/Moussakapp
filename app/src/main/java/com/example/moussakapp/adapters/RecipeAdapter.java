@@ -40,10 +40,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
         final Recipe recipe = recipes.get(position);
 
         holder.setRecipeTitle(recipe.getName());
-        for(Ingredient r : recipe.getIngredientList()){
-            String ingredientsView=r.getName()+" ";
-            holder.setRecipeIngredients(ingredientsView);
-        }
+//        for(Ingredient r : recipe.getIngredientList()){
+//            String ingredientsView=r.getName()+" ";
+//            holder.setRecipeIngredients(ingredientsView);
+//        }
         holder.setRecipeDescription(recipe.getDescription());
         Picasso.get().load(recipe.getImageUrl()).into(holder.getRecipeImg());
 

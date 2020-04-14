@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.example.moussakapp.Entities.Ingredient;
 import com.example.moussakapp.Entities.Recipe;
+import com.example.moussakapp.Entities.RecipeWithIngredients;
+import com.example.moussakapp.Repositories.Repository;
 import com.example.moussakapp.adapters.RecipeAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -41,17 +43,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //FOR TESTING ONLY !!
-        List<Ingredient> ingredientList=new ArrayList<>();
-        ingredientList.add(new Ingredient("chesun","3 lujici bash baq golemi"));
         Recipe recipe=new Recipe("shkembe chorba","Tradicionna bulgarska shkembe chorba","https://www.fares-foods.com/Products/soup/shkembe_chorba.png",
-                10000,ingredientList);
+                10000);
 
         System.out.println(recipe.getName());
         List<Recipe> recipeList=new ArrayList<>();
 
-        recipeList.add(recipe);
-        System.out.println(recipeList.get(0).getName());
+        //recipeList.add(recipe);
+
+
+
+       try{
+           Repository repo=new Repository(getApplicationContext());
+
+           Ingredient ingredient=new Ingredient("kaima","1 panica");
+//
+//           repo.insertIngredient(ingredient);
+           List<Ingredient> allIngredients= new ArrayList<>();
+           allIngredients.add(ingredient);
+
+           repo.insertRecipe(recipe,allIngredients);
+           List<RecipeWithIngredients>  recipeWithIngredients1ist=repo.getAllRecipes();
+
+           for (RecipeWithIngredients r:recipeWithIngredients1ist){
+               System.out.println(r.recipe.getName()+" ingredients: "+r.ingredients.get(0));
+           }
+
+           for(Ingredient i:repo.getAllIngredients()){
+               System.out.println("OUT OF THE BOX" + i.getName());
+           }
+
+       }catch(Exception e){
+           System.out.println("shit happens");
+           e.printStackTrace();
+       }
 
         RecyclerView recyclerView=(RecyclerView)findViewById(R.id.recipesList);
         RecipeAdapter recipeAdapter=new RecipeAdapter(recipeList);

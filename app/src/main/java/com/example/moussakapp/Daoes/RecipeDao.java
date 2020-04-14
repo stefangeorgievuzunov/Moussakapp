@@ -5,37 +5,40 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
+import com.example.moussakapp.Entities.Ingredient;
 import com.example.moussakapp.Entities.Recipe;
+import com.example.moussakapp.Entities.RecipeWithIngredients;
 
 import java.util.List;
 
 @Dao
 public interface RecipeDao {
-    //todo-Siyana maybe needed join to list ingredients as or list
+    //recipes
 
     @Query("SELECT * FROM recipes ORDER BY addedOn desc")
-    LiveData<List<Recipe>> getAll();
+    List<Recipe> getAllRecipes();
 
     @Query("SELECT * FROM recipes ORDER BY addedOn asc")
-    LiveData<List<Recipe>> getByDateAsc();
+    List<Recipe> getByDateAsc();
 
     @Query("SELECT * FROM recipes ORDER BY name asc")
-    LiveData<List<Recipe>> sortByNameAsc();
+    List<Recipe> sortByNameAsc();
 
     @Query("SELECT * FROM recipes ORDER BY name desc")
-    LiveData<List<Recipe>> sortByNameDesc();
+    List<Recipe> sortByNameDesc();
 
     @Query("SELECT * FROM recipes WHERE recipeId = :recipeid")
-    LiveData<Recipe> getRecipe(int recipeid);
+    Recipe getRecipe(int recipeid);
 
-    //todo-Siyana select all where name or ingredients contains string
-    //todo-SIyana sort by most found in recipe
-   // @Query("SELECT * FROM recipe WHERE")
-    LiveData<List<Recipe>> findByIngredients(List<String> ingredients);
-
+    @Transaction
     @Insert
-    void insertRecipe(Recipe recipe);
+    void insertRecipe(Recipe recipe, List<Ingredient> ingredients);
+
+    @Transaction
+    @Query("SELECT * FROM recipes ORDER BY addedOn desc")
+    List<RecipeWithIngredients>getAll();
 
     @Delete
     void deleteRecipe(Recipe recipe);
