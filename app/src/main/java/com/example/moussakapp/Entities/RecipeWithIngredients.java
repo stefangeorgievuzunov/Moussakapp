@@ -7,7 +7,23 @@ import java.util.List;
 
 public class RecipeWithIngredients {
     @Embedded
-    public Recipe recipe;
+    private Recipe recipe;
     @Relation(parentColumn = "recipeId",entityColumn = "ingredientId")
-    public List<Ingredient> ingredients;
+    private List<Ingredient> ingredients;
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 }

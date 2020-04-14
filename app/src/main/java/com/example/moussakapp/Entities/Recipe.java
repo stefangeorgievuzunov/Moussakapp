@@ -26,7 +26,7 @@ public class Recipe {
         return recipeId;
     }
 
-    public void setRecipeId(long recipeId) {
+    public void setRecipeId(long     recipeId) {
         this.recipeId = recipeId;
     }
 

@@ -10,24 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moussakapp.Entities.Ingredient;
-import com.example.moussakapp.Entities.Recipe;
+import com.example.moussakapp.Entities.RecipeWithIngredients;
 import com.example.moussakapp.R;
 import com.example.moussakapp.holders.RecipeViewHolder;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
-    private List<Recipe> recipes;
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
+    private List<RecipeWithIngredients> recipes;
     private Context context;
 
-    public RecipeAdapter(List<Recipe> recipes) {
+    public RecipeAdapter(List<RecipeWithIngredients> recipes) {
         this.recipes = recipes;
     }
 
     @NonNull
     @Override
-    public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+    public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View recipeView = inflater.inflate(R.layout.recipe_item, parent, false);
@@ -37,22 +36,27 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull final RecipeViewHolder holder, int position) {
-        final Recipe recipe = recipes.get(position);
+        final RecipeWithIngredients recipeController = recipes.get(position);
 
-        holder.setRecipeTitle(recipe.getName());
-//        for(Ingredient r : recipe.getIngredientList()){
-//            String ingredientsView=r.getName()+" ";
-//            holder.setRecipeIngredients(ingredientsView);
-//        }
-        holder.setRecipeDescription(recipe.getDescription());
-        Picasso.get().load(recipe.getImageUrl()).into(holder.getRecipeImg());
+        holder.setRecipeTitle(recipeController.getRecipe().getName());
+        for(Ingredient r : recipeController.getIngredients()){
+            String ingredientsView=r.getName()+" ";
+            holder.setRecipeIngredients(ingredientsView);
+        }
+        holder.setRecipeDescription(recipeController.getRecipe().getDescription());
+        Picasso.get().load(recipeController.getRecipe().getImageUrl()).into(holder.getRecipeImg());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, recipe.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, recipeController.getRecipe().getName(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void addNewRecipe(RecipeWithIngredients recipeWithIngredients) {
+        recipes.add(recipeWithIngredients);
+        notifyItemChanged(0);
     }
 
     @Override
