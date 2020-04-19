@@ -1,5 +1,6 @@
 package com.example.moussakapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.moussakapp.Entities.Ingredient;
@@ -28,6 +29,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AddRecipeDialogInterface {
     private  Repository repository;
     RecipeAdapter recipeAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,5 +85,10 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
 
         repository.insertRecipe(recipe,ingredientList);
         recipeAdapter.addNewRecipe(newRecipe);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

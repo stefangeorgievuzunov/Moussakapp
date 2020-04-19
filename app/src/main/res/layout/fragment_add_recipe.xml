@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".AddContactFragment"
+    tools:context=".AddRecipeFragment"
     android:padding="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
-            android:text="Contact Info"
+            android:text="recipe info"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/recipeNameFragment"
@@ -90,10 +90,11 @@
 
         <ImageView
             android:id="@+id/recipeImageFragment"
-            android:layout_width="114dp"
-            android:layout_height="127dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:background="@color/colorPrimary"
+            android:clickable="true"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toTopOf="@+id/addNewRecipeFragment"
             app:layout_constraintEnd_toEndOf="parent"
