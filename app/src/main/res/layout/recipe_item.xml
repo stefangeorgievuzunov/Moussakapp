@@ -32,7 +32,7 @@
             tools:layout_editor_absoluteY="1dp">
 
             <ImageView
-                android:id="@+id/recipeImg"
+                android:id="@+id/recipeImgItem"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +51,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/recipeImg"
+                app:layout_constraintStart_toEndOf="@+id/recipeImgItem"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.036"
                />
@@ -66,7 +66,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/recipeImg"
+                app:layout_constraintStart_toEndOf="@+id/recipeImgItem"
                />
 
             <TextView
@@ -79,7 +79,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.166"
-                app:layout_constraintStart_toEndOf="@+id/recipeImg"
+                app:layout_constraintStart_toEndOf="@+id/recipeImgItem"
                 app:layout_constraintTop_toBottomOf="@+id/recipeIngredients"
                 />
 

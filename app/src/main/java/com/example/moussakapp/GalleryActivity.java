@@ -24,7 +24,7 @@ public class GalleryActivity extends AppCompatActivity implements LoadRecipeImag
         RecyclerView recyclerView = findViewById(R.id.recipeGallery);
         recipeImageAdapter = new RecipeImageAdapter();
         recyclerView.setAdapter(recipeImageAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
     }
 
     @Override

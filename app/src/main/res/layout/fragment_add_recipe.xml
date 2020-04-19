@@ -36,7 +36,7 @@
             android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="ingredients"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/recipeDescriptionFragment"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,15 +47,15 @@
             android:id="@+id/recipeDescriptionFragment"
             android:layout_width="213dp"
             android:layout_height="92dp"
-            android:layout_marginTop="78dp"
+            android:layout_marginTop="116dp"
             android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="description"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine"
             android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toTopOf="@+id/recipeImageFragment"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/recipeIngredientsFragment" />
 
@@ -78,6 +78,7 @@
             android:id="@+id/addNewRecipeFragment"
             android:layout_width="84dp"
             android:layout_height="44dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="16dp"
             android:background="@color/colorPrimary"
             android:text="Add"
@@ -86,20 +87,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recipeImageFragment" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
-        <ImageView
-            android:id="@+id/recipeImageFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:background="@color/colorPrimary"
-            android:clickable="true"
-            android:src="@drawable/ic_launcher_background"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="211dp"
+            android:layout_height="138dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toTopOf="@+id/addNewRecipeFragment"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recipeDescriptionFragment" />
+            app:layout_constraintTop_toBottomOf="@+id/recipeDescriptionFragment">
+
+            <ImageView
+                android:id="@+id/recipeImageFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

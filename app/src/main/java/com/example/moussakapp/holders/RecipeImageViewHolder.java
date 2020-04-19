@@ -14,7 +14,7 @@ public class RecipeImageViewHolder  extends RecyclerView.ViewHolder {
     public RecipeImageViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        recipeImageItem=itemView.findViewById(R.id.recipeImageItem);
+        recipeImageItem=itemView.findViewById(R.id.recipeImgItem);
     }
 
     public ImageView getRecipeImageItem() {
