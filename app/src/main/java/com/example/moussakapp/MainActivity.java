@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
     @Override
     public void viewRecipeDialog(RecipeWithIngredients recipeWithIngredients) {
         FragmentManager fm = getSupportFragmentManager();
-        ViewRecipeFragment viewRecipeFragment = ViewRecipeFragment.newInstance(recipeWithIngredients);
+        ViewRecipeFragment viewRecipeFragment = ViewRecipeFragment.newInstance(recipeWithIngredients);  
         viewRecipeFragment.show(fm, "fragment_view_recipe");
     }
 }

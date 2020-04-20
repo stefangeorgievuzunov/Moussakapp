@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context=".fragments.AddRecipeFragment"
-    android:padding="10dp">
+    android:padding="15dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
