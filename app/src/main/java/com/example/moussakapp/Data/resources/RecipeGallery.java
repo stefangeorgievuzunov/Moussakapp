@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RecipeGallery {
-    public final static String selectImgPngDefault = "https://cdn1.iconfinder.com/data/icons/linkedin-ui-glyph/48/Sed-16-512.png";
+    public final static String selectImgPngDefault = "https://cdn1.iconfinder.com/data/icons/linkedin-ui-glyph/48/Sed-03-512.png";
 
     public final static List<String> getAllUrls() {
         return Arrays.asList(

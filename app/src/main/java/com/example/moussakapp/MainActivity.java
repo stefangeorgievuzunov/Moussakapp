@@ -13,28 +13,32 @@ import com.example.moussakapp.fragments.AddRecipeFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity implements AddRecipeDialogInterface {
-    private  Repository repository;
-    RecipeAdapter recipeAdapter;
+    private Repository repository;
+    private RecipeAdapter recipeAdapter;
+    private RecyclerView recyclerView;
+    private List<RecipeWithIngredients> recipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        repository=new Repository(getApplicationContext());
-
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -50,15 +54,41 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
             }
         });
 
-       try{
-           RecyclerView recyclerView=findViewById(R.id.recipesList);
-           recipeAdapter=new RecipeAdapter(repository.getAllRecipes());
-           recyclerView.setAdapter(recipeAdapter);
-           recyclerView.setLayoutManager(new LinearLayoutManager(this));
-       }catch(Exception e){
-           System.out.println("shit happens");
-           e.printStackTrace();
-       }
+        repository = new Repository(getApplicationContext());
+
+        try {
+            recipes = repository.getAllRecipes();
+        } catch (Exception e) {
+            System.out.println("shit happens");
+            e.printStackTrace();
+        }
+
+        recipeAdapter = new RecipeAdapter(recipes);
+
+        recyclerView = findViewById(R.id.recipesList);
+        recyclerView.setAdapter(recipeAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                try {
+                    repository.deleteRecipe(repository.getAllRecipes().get(position).getRecipe());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                recipes.remove(position);
+                recipeAdapter.notifyDataSetChanged();
+            }
+        });
+
+        helper.attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -79,16 +109,17 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
 
     @Override
     public void onFinishAddDialog(Recipe recipe, List<Ingredient> ingredientList) {
-        RecipeWithIngredients newRecipe=new RecipeWithIngredients();
+        RecipeWithIngredients newRecipe = new RecipeWithIngredients();
         newRecipe.setRecipe(recipe);
         newRecipe.setIngredients(ingredientList);
 
-        repository.insertRecipe(recipe,ingredientList);
+        repository.insertRecipe(recipe, ingredientList);
         recipeAdapter.addNewRecipe(newRecipe);
     }
 
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

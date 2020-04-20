@@ -33,6 +33,17 @@ public class Repository {
         }.execute();
     }
 
+    public void deleteRecipe(final Recipe recipe){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                recipeDatabase.recipeDao().deleteRecipe(recipe);
+                return null;
+            }
+        }.execute();
+
+    }
+
     public  void insertIngredient(final Ingredient ingredient){
         new AsyncTask<Void, Void, Void>() {
             @Override

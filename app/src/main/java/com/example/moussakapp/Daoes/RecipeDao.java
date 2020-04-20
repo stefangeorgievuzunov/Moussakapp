@@ -37,9 +37,11 @@ public interface RecipeDao {
     void insertRecipe(Recipe recipe, List<Ingredient> ingredients);
 
     @Transaction
+    @Delete
+    void deleteRecipe(Recipe recipe);
+
+    @Transaction
     @Query("SELECT * FROM recipes ORDER BY addedOn desc")
     List<RecipeWithIngredients>getAll();
 
-    @Delete
-    void deleteRecipe(Recipe recipe);
 }
