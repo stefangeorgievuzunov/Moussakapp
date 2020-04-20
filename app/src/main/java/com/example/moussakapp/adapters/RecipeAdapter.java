@@ -7,11 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moussakapp.Entities.Ingredient;
 import com.example.moussakapp.Entities.RecipeWithIngredients;
 import com.example.moussakapp.R;
+import com.example.moussakapp.fragments.AddRecipeFragment;
+import com.example.moussakapp.fragments.ViewRecipeDialogInterface;
 import com.example.moussakapp.holders.RecipeViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +23,7 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
     private List<RecipeWithIngredients> recipes;
     private Context context;
+    private ViewRecipeDialogInterface viewRecipeDialogInterface;
 
     public RecipeAdapter(List<RecipeWithIngredients> recipes) {
         this.recipes = recipes;
@@ -29,6 +33,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
+        viewRecipeDialogInterface=(ViewRecipeDialogInterface) context;
+
         LayoutInflater inflater = LayoutInflater.from(context);
         View recipeView = inflater.inflate(R.layout.recipe_item, parent, false);
         RecipeViewHolder viewHolder = new RecipeViewHolder(recipeView);
@@ -50,7 +56,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, recipeController.getRecipe().getName(), Toast.LENGTH_SHORT).show();
+                viewRecipeDialogInterface.viewRecipeDialog(recipeController);
             }
         });
     }

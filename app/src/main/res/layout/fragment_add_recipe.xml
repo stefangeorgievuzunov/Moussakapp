@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".AddRecipeFragment"
+    tools:context=".fragments.AddRecipeFragment"
     android:padding="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             app:layout_constraintBottom_toTopOf="@+id/recipeIngredientsFragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView2" />
+            app:layout_constraintTop_toTopOf="@+id/recipeTitleVF" />
 
         <EditText
             android:id="@+id/recipeIngredientsFragment"
@@ -60,7 +60,7 @@
             app:layout_constraintTop_toTopOf="@+id/recipeIngredientsFragment" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/recipeTitleVF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"

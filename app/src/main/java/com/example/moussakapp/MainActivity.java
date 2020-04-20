@@ -12,6 +12,8 @@ import com.example.moussakapp.Repositories.Repository;
 import com.example.moussakapp.adapters.RecipeAdapter;
 import com.example.moussakapp.fragments.AddRecipeDialogInterface;
 import com.example.moussakapp.fragments.AddRecipeFragment;
+import com.example.moussakapp.fragments.ViewRecipeDialogInterface;
+import com.example.moussakapp.fragments.ViewRecipeFragment;
 import com.example.moussakapp.holders.RecipeViewHolder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity implements AddRecipeDialogInterface {
+public class MainActivity extends AppCompatActivity implements AddRecipeDialogInterface, ViewRecipeDialogInterface {
     private Repository repository;
     private RecipeAdapter recipeAdapter;
     private RecyclerView recyclerView;
@@ -141,8 +143,16 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
     }
 
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void viewRecipeDialog(RecipeWithIngredients recipeWithIngredients) {
+        FragmentManager fm = getSupportFragmentManager();
+        ViewRecipeFragment viewRecipeFragment = ViewRecipeFragment.newInstance(recipeWithIngredients);
+        viewRecipeFragment.show(fm, "fragment_view_recipe");
     }
 }
