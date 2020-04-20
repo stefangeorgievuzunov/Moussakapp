@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moussakapp.R;
@@ -13,6 +14,7 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
     private TextView recipeTitle;
     private TextView recipeIngredients;
     private TextView recipeDescription;
+    private CardView recipeCardView;
     private ImageView recipeImg;
 
     public RecipeViewHolder(@NonNull View itemView){
@@ -22,6 +24,8 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
         recipeIngredients=itemView.findViewById(R.id.recipeIngredients);
         recipeDescription=itemView.findViewById(R.id.recipeDescription);
         recipeImg=itemView.findViewById(R.id.recipeImgItem);
+        recipeCardView=itemView.findViewById(R.id.recipeCardView);
+
     }
     public TextView getRecipeTitle() {
         return recipeTitle;
@@ -45,6 +49,14 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
 
     public void setRecipeDescription(String recipeDescription) {
         this.recipeDescription.setText(recipeDescription);
+    }
+
+    public CardView getRecipeCardView() {
+        return recipeCardView;
+    }
+
+    public void setRecipeCardView(CardView recipeCardView) {
+        this.recipeCardView = recipeCardView;
     }
 
     public ImageView getRecipeImg() {

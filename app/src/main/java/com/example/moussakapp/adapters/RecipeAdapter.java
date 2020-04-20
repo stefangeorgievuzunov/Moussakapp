@@ -4,19 +4,17 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moussakapp.Entities.Ingredient;
 import com.example.moussakapp.Entities.RecipeWithIngredients;
 import com.example.moussakapp.R;
 import com.example.moussakapp.holders.RecipeViewHolder;
-import com.example.moussakapp.services.OnSwipeTouchListener;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
@@ -42,8 +40,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
         final RecipeWithIngredients recipeController = recipes.get(position);
 
         holder.setRecipeTitle(recipeController.getRecipe().getName());
-        for(Ingredient r : recipeController.getIngredients()){
-            String ingredientsView=r.getName()+" ";
+        for (Ingredient r : recipeController.getIngredients()) {
+            String ingredientsView = r.getName() + " ";
             holder.setRecipeIngredients(ingredientsView);
         }
         holder.setRecipeDescription(recipeController.getRecipe().getDescription());
@@ -60,6 +58,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
     public void addNewRecipe(RecipeWithIngredients recipeWithIngredients) {
         recipes.add(recipeWithIngredients);
         notifyItemChanged(0);
+    }
+
+    public void changeItemViewBgColor(@NonNull final RecipeViewHolder holder, int color) {
+        holder.getRecipeCardView().setCardBackgroundColor(color);
     }
 
     @Override

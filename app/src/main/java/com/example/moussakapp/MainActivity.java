@@ -1,6 +1,8 @@
 package com.example.moussakapp;
 
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.moussakapp.Entities.Ingredient;
@@ -10,9 +12,11 @@ import com.example.moussakapp.Repositories.Repository;
 import com.example.moussakapp.adapters.RecipeAdapter;
 import com.example.moussakapp.fragments.AddRecipeDialogInterface;
 import com.example.moussakapp.fragments.AddRecipeFragment;
+import com.example.moussakapp.holders.RecipeViewHolder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -25,6 +29,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,15 +81,33 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
             }
 
             @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+                boolean isCancelled = dX == 0 && !isCurrentlyActive;
+
+                if (isCurrentlyActive) {
+                    recipeAdapter.changeItemViewBgColor((RecipeViewHolder) viewHolder, Color.RED);
+                }
+                if (isCancelled) {
+                    recipeAdapter.changeItemViewBgColor((RecipeViewHolder) viewHolder, Color.WHITE);
+                }
+            }
+
+            @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
+                recipeAdapter.changeItemViewBgColor((RecipeViewHolder) viewHolder, Color.WHITE);
+
+                Toast.makeText(getApplicationContext(), recipes.get(position).getRecipe().getName() + " was deleted.", Toast.LENGTH_SHORT).show();
+
                 try {
                     repository.deleteRecipe(repository.getAllRecipes().get(position).getRecipe());
+                    recipes.remove(position);
+                    recipeAdapter.notifyDataSetChanged();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                recipes.remove(position);
-                recipeAdapter.notifyDataSetChanged();
             }
         });
 
