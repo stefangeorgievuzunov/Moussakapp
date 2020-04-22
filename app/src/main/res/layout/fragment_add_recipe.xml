@@ -19,7 +19,7 @@
             android:layout_marginBottom="25dp"
             android:backgroundTint="@color/colorPrimary"
             android:ems="10"
-            android:hint="name"
+            android:hint="Name"
             android:inputType="textPersonName"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/recipeIngredientsFragment"
@@ -35,7 +35,7 @@
             android:layout_marginBottom="27dp"
             android:backgroundTint="@color/colorPrimary"
             android:ems="10"
-            android:hint="ingredients"
+            android:hint="Ingredients.Example:\n500 g sugar, 1 kg salt"
             android:inputType="textMultiLine"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/recipeDescriptionFragment"
@@ -113,6 +113,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/invalidFormat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="38dp"
+            android:text="Invalid format, please follow the pattern"
+            android:textColor="#CE0F0F"
+            android:textSize="10sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/recipeIngredientsFragment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipeNameFragment" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

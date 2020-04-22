@@ -4,7 +4,10 @@ package com.example.moussakapp.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +30,11 @@ import com.example.moussakapp.fragments.entities.RecipeImage;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class AddRecipeFragment extends DialogFragment implements View.OnClickListener {
     private EditText recipeName;
@@ -33,6 +42,9 @@ public class AddRecipeFragment extends DialogFragment implements View.OnClickLis
     private EditText recipeDescription;
     private RecipeImage recipeImage;
     private Button addNewRecipe;
+    private TextView invalidFormatMessage;
+    private final Pattern pattern = Pattern.compile("^[\\d]{1,3}\\s[\\w]{1,3} (.*)");
+
     AddRecipeDialogInterface listener;
 
     public AddRecipeFragment() {
@@ -55,8 +67,36 @@ public class AddRecipeFragment extends DialogFragment implements View.OnClickLis
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        invalidFormatMessage = view.findViewById(R.id.invalidFormat);
         recipeName = view.findViewById(R.id.recipeNameFragment);
         recipeIngredients = view.findViewById(R.id.recipeIngredientsFragment);
+
+        recipeIngredients.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                List<String> ingredientsInput = Arrays.asList(s.toString().split("\n"));
+                for (String input : ingredientsInput) {
+                    if (!pattern.matcher(input.trim()).matches()) {
+                        invalidFormatMessage.setVisibility(View.VISIBLE);
+                        addNewRecipe.setVisibility(View.INVISIBLE);
+                        break;
+                    } else {
+                        invalidFormatMessage.setVisibility(View.INVISIBLE);
+                        addNewRecipe.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+            }
+        });
         recipeDescription = view.findViewById(R.id.recipeDescriptionFragment);
         addNewRecipe = view.findViewById(R.id.addNewRecipeFragment);
         recipeImage.setImageView((ImageView) view.findViewById(R.id.recipeImageFragment));
@@ -83,13 +123,14 @@ public class AddRecipeFragment extends DialogFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        Recipe recipe = new Recipe(recipeName.getText().toString(), recipeDescription.getText().toString(), recipeImage.getImageUrl(), 1);
-
-        List<Ingredient> ingredientList = new ArrayList<>();
-        ingredientList.add(new Ingredient("cheren peper", "100 gr"));
-
-        listener.onFinishAddDialog(recipe, ingredientList);
-        dismiss();
+        if(!recipeName.getText().toString().isEmpty()&&!recipeIngredients.getText().toString().isEmpty()){
+            List<Ingredient> ingredients = ingredientsDataSource();
+            Recipe recipe = new Recipe(recipeName.getText().toString(), recipeDescription.getText().toString(), recipeImage.getImageUrl(), 1);
+            listener.onFinishAddDialog(recipe, ingredients);
+            dismiss();
+        }else{
+            Toast.makeText(getContext(), "Name and Ingredients fields cannot be empty.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -100,5 +141,30 @@ public class AddRecipeFragment extends DialogFragment implements View.OnClickLis
             recipeImage.setImageUrl(data.getStringExtra("recipeUrl"));
             Picasso.get().load(recipeImage.getImageUrl()).into(recipeImage.getImageView());
         }
+    }
+
+    private List<Ingredient> ingredientsDataSource() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        List<String> ingredientsInput = Arrays.asList(recipeIngredients.getText().toString().split("\n"));
+
+        //TODO FIX
+        for (String input: ingredientsInput) {
+
+            Matcher matcher=pattern.matcher(input.trim());
+            if(matcher.find()){
+                String quantity = matcher.group(0);
+                String name=matcher.group(1);
+                ingredients.add(new Ingredient(name, quantity));
+            }
+        }
+//        Matcher matcher=pattern.matcher(recipeIngredients.getText().toString().trim());
+//
+//        while(matcher.find()){
+//            String quantity = matcher.group(1);
+//            String name=matcher.group(2);
+//            ingredients.add(new Ingredient(name, quantity));
+//        }
+
+        return ingredients;
     }
 }
