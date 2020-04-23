@@ -19,6 +19,8 @@ import com.example.moussakapp.Entities.RecipeWithIngredients;
 import com.example.moussakapp.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.stream.Collectors;
+
 
 public class ViewRecipeFragment extends DialogFragment {
     private TextView recipeName;
@@ -28,7 +30,7 @@ public class ViewRecipeFragment extends DialogFragment {
 
     private final RecipeWithIngredients recipeWithIngredients;
 
-    public ViewRecipeFragment(RecipeWithIngredients recipeWithIngredients){
+    public ViewRecipeFragment(RecipeWithIngredients recipeWithIngredients) {
         this.recipeWithIngredients = recipeWithIngredients;
     }
 
@@ -46,22 +48,11 @@ public class ViewRecipeFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        recipeName = view.findViewById(R.id.recipeTitleVF);
+        recipeImage = view.findViewById(R.id.recipeImageVF);
+        recipeIngradients = view.findViewById(R.id.recipeIngredientsVF);
+        recipeDescription = view.findViewById(R.id.recipeDescriptionVF);
 
-        recipeName=view.findViewById(R.id.recipeTitleVF);
-        recipeImage=view.findViewById(R.id.recipeImageVF);
-        recipeIngradients=view.findViewById(R.id.recipeIngredientsVF);
-        recipeDescription=view.findViewById(R.id.recipeDescriptionVF);
-
-        recipeName.setText(recipeWithIngredients.getRecipe().getName());
-        Picasso.get().load(recipeWithIngredients.getRecipe().getImageUrl()).into(recipeImage);
-        recipeDescription.setText(recipeWithIngredients.getRecipe().getDescription());
-
-        String iField="";
-        for (Ingredient i : recipeWithIngredients.getIngredients()){
-            iField+=i.getName()+": "+i.getQuantity()+"\n";
-        }
-
-        recipeIngradients.setText(iField);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
@@ -70,4 +61,22 @@ public class ViewRecipeFragment extends DialogFragment {
         super.onAttach(context);
     }
 
+    private void loadRecipeView() {
+        recipeName.setText(recipeWithIngredients.getRecipe().getName());
+        recipeDescription.setText(recipeWithIngredients.getRecipe().getDescription());
+        loadImage(recipeWithIngredients.getRecipe().getImageUrl());
+
+        String ingredientsView = "";
+        for (Ingredient i : recipeWithIngredients.getIngredients()) {
+            ingredientsView += i.getName() + ": " + i.getQuantity() + "\n";
+        }
+
+        recipeIngradients.setText(ingredientsView);
+    }
+
+    private void loadImage(String url) {
+        if (url != null) {
+            Picasso.get().load(url).into(recipeImage);
+        }
+    }
 }
