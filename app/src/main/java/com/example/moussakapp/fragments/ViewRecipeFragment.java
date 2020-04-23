@@ -56,9 +56,12 @@ public class ViewRecipeFragment extends DialogFragment {
         Picasso.get().load(recipeWithIngredients.getRecipe().getImageUrl()).into(recipeImage);
         recipeDescription.setText(recipeWithIngredients.getRecipe().getDescription());
 
+        String iField="";
         for (Ingredient i : recipeWithIngredients.getIngredients()){
-            recipeIngradients.setText(i.getName()+": "+i.getQuantity());
+            iField+=i.getName()+": "+i.getQuantity()+"\n";
         }
+
+        recipeIngradients.setText(iField);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 

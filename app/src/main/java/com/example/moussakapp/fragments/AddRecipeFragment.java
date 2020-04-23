@@ -43,7 +43,7 @@ public class AddRecipeFragment extends DialogFragment implements View.OnClickLis
     private RecipeImage recipeImage;
     private Button addNewRecipe;
     private TextView invalidFormatMessage;
-    private final Pattern pattern = Pattern.compile("^[\\d]{1,3}\\s[\\w]{1,3} (.*)");
+    private final Pattern pattern = Pattern.compile("^([\\d]{1,3}\\s[\\w]{1,3})\\s(\\S.*)");
 
     AddRecipeDialogInterface listener;
 
@@ -75,8 +75,9 @@ public class AddRecipeFragment extends DialogFragment implements View.OnClickLis
             @Override
             public void afterTextChanged(Editable s) {
                 List<String> ingredientsInput = Arrays.asList(s.toString().split("\n"));
+
                 for (String input : ingredientsInput) {
-                    if (!pattern.matcher(input.trim()).matches()) {
+                    if (!pattern.matcher(input).matches()) {
                         invalidFormatMessage.setVisibility(View.VISIBLE);
                         addNewRecipe.setVisibility(View.INVISIBLE);
                         break;
@@ -147,23 +148,14 @@ public class AddRecipeFragment extends DialogFragment implements View.OnClickLis
         List<Ingredient> ingredients = new ArrayList<>();
         List<String> ingredientsInput = Arrays.asList(recipeIngredients.getText().toString().split("\n"));
 
-        //TODO FIX
         for (String input: ingredientsInput) {
-
-            Matcher matcher=pattern.matcher(input.trim());
-            if(matcher.find()){
-                String quantity = matcher.group(0);
-                String name=matcher.group(1);
+            Matcher matcher=pattern.matcher(input);
+            if(matcher.matches()){
+                String quantity = matcher.group(1);
+                String name=matcher.group(2);
                 ingredients.add(new Ingredient(name, quantity));
             }
         }
-//        Matcher matcher=pattern.matcher(recipeIngredients.getText().toString().trim());
-//
-//        while(matcher.find()){
-//            String quantity = matcher.group(1);
-//            String name=matcher.group(2);
-//            ingredients.add(new Ingredient(name, quantity));
-//        }
 
         return ingredients;
     }

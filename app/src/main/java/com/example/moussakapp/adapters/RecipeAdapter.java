@@ -29,8 +29,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
     private ViewRecipeDialogInterface viewRecipeDialogInterface;
 
     public RecipeAdapter(List<RecipeWithIngredients> recipes) {
-        this.recipesList = recipes;
-        recipeListFull =new ArrayList<>(recipes);
+        this.recipeListFull=recipes;
+        recipesList =new ArrayList<>(recipes);
     }
 
     @NonNull
@@ -51,10 +51,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
         final RecipeWithIngredients recipeController = recipesList.get(position);
         holder.setRecipeTitle(recipeController.getRecipe().getName());
 
+        String iField="";
+
         for (Ingredient r : recipeController.getIngredients()) {
-            String ingredientsView = r.getName() + " ";
-            holder.setRecipeIngredients(ingredientsView);
+           iField+=r.getName()+" ";
         }
+
+        holder.setRecipeIngredients(iField);
         holder.setRecipeDescription(recipeController.getRecipe().getDescription());
         Picasso.get().load(recipeController.getRecipe().getImageUrl()).into(holder.getRecipeImg());
 
@@ -67,7 +70,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
     }
 
     public void addNewRecipe(RecipeWithIngredients recipeWithIngredients) {
-        recipesList.add(recipeWithIngredients);
+        recipeListFull.add(recipeWithIngredients);
         notifyItemChanged(0);
     }
 
