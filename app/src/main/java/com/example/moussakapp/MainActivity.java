@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
             e.printStackTrace();
         }
 
-        recipeAdapter = new RecipeAdapter(recipes);
+        recipeAdapter = new RecipeAdapter(recipes,repository);
 
         recyclerView = findViewById(R.id.recipesList);
         recyclerView.setAdapter(recipeAdapter);

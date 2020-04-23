@@ -16,24 +16,16 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class RecipeImageAdapter extends RecyclerView.Adapter<RecipeImageViewHolder>{
-    private Context context;
-    private List<String> recipeImageList;
+    private List<String> recipeImageList=RecipeGallery.getAllUrls();
     private LoadRecipeImageListener listener;
-
-    public RecipeImageAdapter() {
-        this.recipeImageList = RecipeGallery.getAllUrls();
-    }
 
     @NonNull
     @Override
     public RecipeImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context=parent.getContext();
-        listener=(LoadRecipeImageListener) context;
-
-        LayoutInflater inflater = LayoutInflater.from(context);
+        listener=(LoadRecipeImageListener) parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View recipeView = inflater.inflate(R.layout.recipe_image_item, parent, false);
-        RecipeImageViewHolder viewHolder = new RecipeImageViewHolder(recipeView);
-        return viewHolder;
+        return new RecipeImageViewHolder(recipeView);
     }
 
     @Override
@@ -41,12 +33,7 @@ public class RecipeImageAdapter extends RecyclerView.Adapter<RecipeImageViewHold
         final String recipeImageUrl=recipeImageList.get(position);
         Picasso.get().load(recipeImageUrl).into(holder.getRecipeImageItem());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.setImgUrl(recipeImageUrl);
-            }
-        });
+        holder.itemView.setOnClickListener(v-> listener.setImgUrl(recipeImageUrl));
     }
 
     @Override

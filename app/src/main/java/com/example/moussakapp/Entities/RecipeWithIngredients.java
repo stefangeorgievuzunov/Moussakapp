@@ -1,8 +1,6 @@
 package com.example.moussakapp.Entities;
 
 import androidx.room.Embedded;
-import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.Relation;
 
 import java.util.List;
@@ -28,4 +26,5 @@ public class RecipeWithIngredients {
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
 }
