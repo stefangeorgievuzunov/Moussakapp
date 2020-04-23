@@ -20,7 +20,6 @@ public class GalleryActivity extends AppCompatActivity implements LoadRecipeImag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-
         RecyclerView recyclerView = findViewById(R.id.recipeGallery);
         recipeImageAdapter = new RecipeImageAdapter();
         recyclerView.setAdapter(recipeImageAdapter);
@@ -30,8 +29,8 @@ public class GalleryActivity extends AppCompatActivity implements LoadRecipeImag
     @Override
     public void setImgUrl(String url) {
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("recipeUrl",url);
-        setResult(Activity.RESULT_OK,returnIntent);
+        returnIntent.putExtra("recipeUrl", url);
+        setResult(Activity.RESULT_OK, returnIntent);
         finish();
         this.onBackPressed();
     }
