@@ -4,16 +4,16 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity (tableName = "recipes")
+@Entity
 public class Recipe {
     @PrimaryKey(autoGenerate = true)
-    public long recipeId;
+    private long id;
     private String name;
     private String description;
     private String imageUrl;
     private int addedOn;
 
-    public Recipe( String name, String description, String imageUrl, int addedOn) {
+    public Recipe(String name, String description, String imageUrl, int addedOn) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -21,13 +21,12 @@ public class Recipe {
     }
 
 
-
-    public long getRecipeId() {
-        return recipeId;
+    public long getId() {
+        return id;
     }
 
-    public void setRecipeId(long     recipeId) {
-        this.recipeId = recipeId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @ColumnInfo(name = "recipe_name")

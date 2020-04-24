@@ -5,10 +5,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity (tableName = "ingredients")
+@Entity
 public class Ingredient {
     @PrimaryKey(autoGenerate = true)
-    public long ingredientId;
+    private long id;
+    private long recipeId;
     private String name;
     private String quantity;
 
@@ -17,13 +18,20 @@ public class Ingredient {
         this.quantity = quantity;
     }
 
-
-    public long getIngredientId() {
-        return ingredientId;
+    public long getRecipeId() {
+        return recipeId;
     }
 
-    public void setIngredientId(long ingredientId) {
-        this.ingredientId = ingredientId;
+    public void setRecipeId(long recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @ColumnInfo(name = "ingredient_name")

@@ -19,8 +19,6 @@ import com.example.moussakapp.Entities.RecipeWithIngredients;
 import com.example.moussakapp.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.stream.Collectors;
-
 
 public class ViewRecipeFragment extends DialogFragment {
     private TextView recipeName;
@@ -53,6 +51,7 @@ public class ViewRecipeFragment extends DialogFragment {
         recipeIngradients = view.findViewById(R.id.recipeIngredientsVF);
         recipeDescription = view.findViewById(R.id.recipeDescriptionVF);
 
+        loadRecipeViewData();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
@@ -61,7 +60,7 @@ public class ViewRecipeFragment extends DialogFragment {
         super.onAttach(context);
     }
 
-    private void loadRecipeView() {
+    private void loadRecipeViewData() {
         recipeName.setText(recipeWithIngredients.getRecipe().getName());
         recipeDescription.setText(recipeWithIngredients.getRecipe().getDescription());
         loadImage(recipeWithIngredients.getRecipe().getImageUrl());

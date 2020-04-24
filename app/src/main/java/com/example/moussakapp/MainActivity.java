@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import com.example.moussakapp.Entities.Ingredient;
-import com.example.moussakapp.Entities.Recipe;
 import com.example.moussakapp.Entities.RecipeWithIngredients;
 import com.example.moussakapp.Repositories.Repository;
 import com.example.moussakapp.adapters.RecipeAdapter;
@@ -15,17 +13,16 @@ import com.example.moussakapp.fragments.AddRecipeFragment;
 import com.example.moussakapp.fragments.ViewRecipeDialogInterface;
 import com.example.moussakapp.fragments.ViewRecipeFragment;
 import com.example.moussakapp.holders.RecipeViewHolder;
+import com.facebook.stetho.Stetho;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
@@ -43,19 +40,16 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Stetho.initializeWithDefaults(this);
+
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         FloatingActionButton fab = findViewById(R.id.addNewRecipe);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getSupportFragmentManager();
-                AddRecipeFragment addContactFragment = AddRecipeFragment.newInstance();
-                addContactFragment.show(fm, "fragment_add_recipe");
-            }
+
+        setSupportActionBar(toolbar);
+        fab.setOnClickListener(action -> {
+            AddRecipeFragment addContactFragment = AddRecipeFragment.newInstance();
+            addContactFragment.show(getSupportFragmentManager(), "fragment_add_recipe");
         });
 
         repository = new Repository(getApplicationContext());
@@ -63,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
         try {
             recipes = repository.getAllRecipes();
         } catch (Exception e) {
-            System.out.println("shit happens");
             e.printStackTrace();
         }
 
@@ -82,13 +75,10 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-
-                boolean isCancelled = dX == 0 && !isCurrentlyActive;
-
                 if (isCurrentlyActive) {
                     recipeAdapter.changeItemViewBgColor((RecipeViewHolder) viewHolder, Color.RED);
                 }
-                if (isCancelled) {
+                if (dX == 0 && !isCurrentlyActive) {
                     recipeAdapter.changeItemViewBgColor((RecipeViewHolder) viewHolder, Color.WHITE);
                 }
             }
@@ -98,12 +88,11 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
                 int position = viewHolder.getAdapterPosition();
                 recipeAdapter.changeItemViewBgColor((RecipeViewHolder) viewHolder, Color.WHITE);
 
-                Toast.makeText(getApplicationContext(), recipes.get(position).getRecipe().getName() + " was deleted.", Toast.LENGTH_SHORT).show();
-
                 try {
-                    repository.deleteRecipe(repository.getAllRecipes().get(position).getRecipe());
+                    recipeAdapter.deleteRecipe(recipes.get(position));
                     recipes.remove(position);
                     recipeAdapter.notifyDataSetChanged();
+                    Toast.makeText(getApplicationContext(), recipes.get(position).getRecipe().getName() + " was deleted.", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -137,31 +126,22 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onFinishAddDialog(Recipe recipe, List<Ingredient> ingredientList) {
-        RecipeWithIngredients newRecipe = new RecipeWithIngredients();
-        newRecipe.setRecipe(recipe);
-        newRecipe.setIngredients(ingredientList);
-
-        repository.insertRecipe(recipe, ingredientList);
-        recipeAdapter.addNewRecipe(newRecipe);
+    public void onFinishAddDialog(RecipeWithIngredients recipeWithIngredients) {
+        recipeWithIngredients.getIngredients().forEach(i->System.out.println(recipeWithIngredients.getRecipe().getName()+"BEFORE ->"+i.getName()));
+        recipeAdapter.addNewRecipe(recipeWithIngredients);
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
     @Override
     public void viewRecipeDialog(RecipeWithIngredients recipeWithIngredients) {
-        FragmentManager fm = getSupportFragmentManager();
-        ViewRecipeFragment viewRecipeFragment = ViewRecipeFragment.newInstance(recipeWithIngredients);  
-        viewRecipeFragment.show(fm, "fragment_view_recipe");
+        ViewRecipeFragment viewRecipeFragment = ViewRecipeFragment.newInstance(recipeWithIngredients);
+        viewRecipeFragment.show(getSupportFragmentManager(), "fragment_view_recipe");
     }
 }

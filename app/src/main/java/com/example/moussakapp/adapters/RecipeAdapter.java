@@ -1,6 +1,5 @@
 package com.example.moussakapp.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,10 +86,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
         }
     };
 
-    public void addNewRecipe(@NonNull RecipeWithIngredients recipeWithIngredients) {
-        repository.insertRecipe(recipeWithIngredients.getRecipe(), recipeWithIngredients.getIngredients());
+    public void addNewRecipe(RecipeWithIngredients recipeWithIngredients) {
+        recipeWithIngredients.getIngredients().forEach(i->System.out.println(recipeWithIngredients.getRecipe().getName()+"AFTER ->"+i.getName()));
+        repository.insertRecipe(recipeWithIngredients);
+        recipesList.add(recipeWithIngredients);
+        //recipesList = loadAllRecipes();
+        loadAllRecipes().forEach(r->r.getIngredients().forEach(i->System.out.println(r.getRecipe().getName()+"LATTEST->"+i.getName())));
+    }
+
+    public void deleteRecipe( RecipeWithIngredients recipeWithIngredients) {
+        repository.deleteRecipe(recipeWithIngredients);
         recipesList = loadAllRecipes();
-        notifyDataSetChanged(); // must?
     }
 
     public void changeItemViewBgColor(@NonNull final RecipeViewHolder holder, final int color) {

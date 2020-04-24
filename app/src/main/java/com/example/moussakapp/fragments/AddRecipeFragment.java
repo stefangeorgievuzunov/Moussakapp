@@ -23,6 +23,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.moussakapp.Entities.Ingredient;
 import com.example.moussakapp.Entities.Recipe;
+import com.example.moussakapp.Entities.RecipeWithIngredients;
 import com.example.moussakapp.GalleryActivity;
 import com.example.moussakapp.R;
 import com.example.moussakapp.fragments.entities.RecipeImage;
@@ -118,14 +119,21 @@ public class AddRecipeFragment extends DialogFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (!recipeName.getText().toString().isEmpty() && !recipeIngredients.getText().toString().isEmpty()) {
-            Recipe recipe = new Recipe(recipeName.getText().toString(), recipeDescription.getText().toString(), recipeImage.getImageUrl(), 1);
-            listener.onFinishAddDialog(recipe, ingredientsDataSource());
+            listener.onFinishAddDialog(loadRecipeDataForInsert());
             dismiss();
         } else {
             Toast.makeText(getContext(), "Name and Ingredients fields cannot be empty.", Toast.LENGTH_SHORT).show();
         }
     }
+    private RecipeWithIngredients loadRecipeDataForInsert(){
+        RecipeWithIngredients recipeWithIngredients=new RecipeWithIngredients();
+        Recipe recipe = new Recipe(recipeName.getText().toString(), recipeDescription.getText().toString(), recipeImage.getImageUrl(), 1);
 
+        recipeWithIngredients.setRecipe(recipe);
+        recipeWithIngredients.setIngredients(ingredientsDataSource());
+
+        return recipeWithIngredients;
+    }
     private List<Ingredient> ingredientsDataSource() {
         List<Ingredient> ingredients = new ArrayList<>();
         String[] ingredientsInput = recipeIngredients.getText().toString().split("\n");

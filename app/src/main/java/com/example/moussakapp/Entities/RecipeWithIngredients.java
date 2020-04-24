@@ -1,6 +1,7 @@
 package com.example.moussakapp.Entities;
 
 import androidx.room.Embedded;
+
 import androidx.room.Relation;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class RecipeWithIngredients {
     @Embedded
     private Recipe recipe;
-    @Relation(parentColumn = "recipeId",entityColumn = "ingredientId")
+    @Relation(parentColumn = "id", entityColumn = "recipeId", entity = Ingredient.class)
     private List<Ingredient> ingredients;
 
     public Recipe getRecipe() {

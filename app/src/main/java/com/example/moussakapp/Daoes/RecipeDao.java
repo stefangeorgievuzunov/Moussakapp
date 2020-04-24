@@ -1,9 +1,12 @@
 package com.example.moussakapp.Daoes;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.ColumnInfo;
 import androidx.room.Dao;
 import androidx.room.Delete;
+import androidx.room.ForeignKey;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
@@ -13,35 +16,31 @@ import com.example.moussakapp.Entities.RecipeWithIngredients;
 
 import java.util.List;
 
+import static androidx.room.ForeignKey.*;
+
 @Dao
-public interface RecipeDao {
-    //recipes
+public abstract class RecipeDao {
 
-    @Query("SELECT * FROM recipes ORDER BY addedOn desc")
-    List<Recipe> getAllRecipes();
+    public  void insert(RecipeWithIngredients recipeWithIngredients){
+        long id=insertRecipe(recipeWithIngredients.getRecipe());
+        recipeWithIngredients.getIngredients().forEach(i->i.setRecipeId(id));
+        insertAll(recipeWithIngredients.getIngredients());
+    }
 
-    @Query("SELECT * FROM recipes ORDER BY addedOn asc")
-    List<Recipe> getByDateAsc();
+    public void delete(RecipeWithIngredients recipeWithIngredients){
+        delete(recipeWithIngredients.getRecipe(),recipeWithIngredients.getIngredients());
+    }
 
-    @Query("SELECT * FROM recipes ORDER BY name asc")
-    List<Recipe> sortByNameAsc();
-
-    @Query("SELECT * FROM recipes ORDER BY name desc")
-    List<Recipe> sortByNameDesc();
-
-    @Query("SELECT * FROM recipes WHERE recipeId = :recipeid")
-    Recipe getRecipe(int recipeid);
-
-    @Transaction
     @Insert
-    void insertRecipe(Recipe recipe, List<Ingredient> ingredients);
+    abstract  void insertAll(List<Ingredient> ingredients);
+    @Insert
+    abstract long insertRecipe(Recipe recipe);
 
     @Transaction
     @Delete
-    void deleteRecipe(Recipe recipe);
+    abstract void delete(Recipe recipe,List<Ingredient> ingredients);
 
     @Transaction
-    @Query("SELECT * FROM recipes ORDER BY addedOn desc")
-    List<RecipeWithIngredients>getAll();
-
+    @Query("SELECT * FROM Recipe")
+     public abstract List<RecipeWithIngredients> loadAll();
 }
