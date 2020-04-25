@@ -41,6 +41,6 @@ public abstract class RecipeDao {
     abstract void delete(Recipe recipe,List<Ingredient> ingredients);
 
     @Transaction
-    @Query("SELECT * FROM Recipe")
+    @Query("SELECT * FROM Recipe ORDER BY addedOn desc")
      public abstract List<RecipeWithIngredients> loadAll();
 }

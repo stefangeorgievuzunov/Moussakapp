@@ -1,10 +1,12 @@
 package com.example.moussakapp.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +29,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
     private List<RecipeWithIngredients> recipesList;
     private Repository repository;
     private ViewRecipeDialogInterface viewRecipeDialogInterface;
+    private Context context;
 
     public RecipeAdapter(List<RecipeWithIngredients> recipes, Repository repository) {
         this.repository = repository;
@@ -37,6 +40,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         viewRecipeDialogInterface = (ViewRecipeDialogInterface) parent.getContext();
+        context=parent.getContext();
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View recipeView = inflater.inflate(R.layout.recipe_item, parent, false);
@@ -70,31 +74,39 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
     private Filter filterIt = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+            List<RecipeWithIngredients> filteredList=new ArrayList<>();
+
             if (constraint == null || constraint.length() == 0) {
-                recipesList = loadAllRecipes();
+                filteredList.addAll(loadAllRecipes());
             } else {
-                recipesList = loadSearch(constraint.toString());
+                filteredList.addAll(loadSearch(constraint.toString()));
             }
             FilterResults results = new FilterResults();
-            results.values = recipesList;
+            results.values = filteredList;
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
+            recipesList.clear();
+            recipesList.addAll((List)results.values);
             notifyDataSetChanged();
         }
     };
 
     public void addNewRecipe(RecipeWithIngredients recipeWithIngredients) {
         repository.insertRecipe(recipeWithIngredients);
-        recipesList.add(recipeWithIngredients);
+        Toast.makeText(context, recipeWithIngredients.getRecipe().getName() + " was added to recipe list.", Toast.LENGTH_SHORT).show();
+        recipesList.clear();
+        recipesList.addAll(loadAllRecipes());
         notifyDataSetChanged();
     }
 
     public void deleteRecipe( RecipeWithIngredients recipeWithIngredients) {
         repository.deleteRecipe(recipeWithIngredients);
-        recipesList.remove(recipeWithIngredients);
+        Toast.makeText(context, recipeWithIngredients.getRecipe().getName() + " was deleted.", Toast.LENGTH_SHORT).show();
+        recipesList.clear();
+        recipesList.addAll(loadAllRecipes());
         notifyDataSetChanged();
     }
 
@@ -117,7 +129,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
 
         for (RecipeWithIngredients r:loadAllRecipes()){
             for (Ingredient i:r.getIngredients()){
-                if (searchedData.contains(i.getName())) {
+                if (searchedData.contains(i.getName().toLowerCase())) {
                     returned.add(r);
                     break;
                 }

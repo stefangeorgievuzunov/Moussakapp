@@ -14,16 +14,16 @@
 
         <TextView
             android:id="@+id/invalidFormat"
-            android:layout_width="204dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="52dp"
+            android:layout_width="209dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="48dp"
             android:layout_marginEnd="1dp"
             android:text="Invalid format, please follow the example"
             android:textColor="#CE0F0F"
             android:textSize="15sp"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.375"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/recipeNameFragment" />
 
@@ -48,39 +48,41 @@
             android:id="@+id/recipeIngredientsFragment"
             android:layout_width="212dp"
             android:layout_height="97dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="19dp"
             android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="Ingredients.Example:\n500 g sugar\n1 kg salt"
             android:inputType="textMultiLine"
             android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/recipeDescriptionFragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/invalidFormat" />
+            app:layout_constraintTop_toTopOf="@+id/invalidFormat"
+            app:layout_constraintVertical_bias="1.0" />
 
         <EditText
             android:id="@+id/recipeDescriptionFragment"
             android:layout_width="213dp"
             android:layout_height="92dp"
-            android:layout_marginTop="116dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/colorPrimary"
             android:ems="10"
-            android:hint="description"
+            android:hint="Description"
             android:inputType="textMultiLine"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/recipeIngredientsFragment" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/recipeTitleVF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="18dp"
-            android:text="recipe info"
+            android:text="Recipe Info"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/recipeNameFragment"

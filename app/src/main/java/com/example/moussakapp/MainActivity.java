@@ -25,8 +25,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
-import android.widget.Toast;
-
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AddRecipeDialogInterface, ViewRecipeDialogInterface {
@@ -87,10 +85,7 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
                 recipeAdapter.changeItemViewBgColor((RecipeViewHolder) viewHolder, Color.WHITE);
 
                 try {
-                    Toast.makeText(getApplicationContext(), recipes.get(position).getRecipe().getName() + " was deleted.", Toast.LENGTH_SHORT).show();
                     recipeAdapter.deleteRecipe(recipes.get(position));
-//                    recipes.remove(position);
-//                    recipeAdapter.notifyDataSetChanged();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -108,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
         SearchView searchView = (SearchView) searchItem.getActionView();
 
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setQueryHint("salt, sugar, olive..");
+        searchView.onActionViewExpanded();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -127,12 +124,14 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        SearchView search=(SearchView) item.getActionView();
+        search.setFocusable(true);
+        search.requestFocusFromTouch();
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onFinishAddDialog(RecipeWithIngredients recipeWithIngredients) {
-        recipeWithIngredients.getIngredients().forEach(i->System.out.println(recipeWithIngredients.getRecipe().getName()+"BEFORE ->"+i.getName()));
         recipeAdapter.addNewRecipe(recipeWithIngredients);
     }
 

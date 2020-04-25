@@ -11,9 +11,9 @@ public class Recipe {
     private String name;
     private String description;
     private String imageUrl;
-    private int addedOn;
+    private long addedOn;
 
-    public Recipe(String name, String description, String imageUrl, int addedOn) {
+    public Recipe(String name, String description, String imageUrl, long addedOn) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -57,11 +57,11 @@ public class Recipe {
     }
 
     @ColumnInfo(name = "added_on")
-    public int getAddedOn() {
+    public long getAddedOn() {
         return addedOn;
     }
 
-    public void setAddedOn(int addedOn) {
+    public void setAddedOn(long addedOn) {
         this.addedOn = addedOn;
     }
 
