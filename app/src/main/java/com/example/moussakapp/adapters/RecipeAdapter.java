@@ -105,8 +105,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
     public void deleteRecipe( RecipeWithIngredients recipeWithIngredients) {
         repository.deleteRecipe(recipeWithIngredients);
         Toast.makeText(context, recipeWithIngredients.getRecipe().getName() + " was deleted.", Toast.LENGTH_SHORT).show();
-        recipesList.clear();
-        recipesList.addAll(loadAllRecipes());
+        recipesList.remove(recipeWithIngredients);
         notifyDataSetChanged();
     }
 
