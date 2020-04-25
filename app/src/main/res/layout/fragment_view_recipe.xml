@@ -8,14 +8,14 @@
     android:padding="22dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="204dp"
-        android:layout_height="560dp">
+        android:layout_width="219dp"
+        android:layout_height="481dp">
 
         <TextView
             android:id="@+id/recipeTitleVF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="recipe info"
+            android:text="Recipe Info"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +83,7 @@
             android:layout_marginBottom="8dp"
             android:text="Ingredients"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toTopOf="@+id/recipeIngredientsVF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -98,7 +98,7 @@
             android:layout_marginTop="116dp"
             android:text="Description"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.009"
             app:layout_constraintStart_toStartOf="parent"

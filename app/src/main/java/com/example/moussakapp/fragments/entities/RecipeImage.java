@@ -3,7 +3,6 @@ package com.example.moussakapp.fragments.entities;
 import android.widget.ImageView;
 
 import com.example.moussakapp.Data.resources.RecipeGallery;
-import com.squareup.picasso.Picasso;
 
 public class RecipeImage {
     private ImageView imageView;

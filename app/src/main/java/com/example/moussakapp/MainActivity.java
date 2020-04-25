@@ -25,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
+import android.widget.Toast;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AddRecipeDialogInterface, ViewRecipeDialogInterface {
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
 
                 try {
                     recipeAdapter.deleteRecipe(recipes.get(position));
+                    Toast.makeText(getApplicationContext(), recipes.get(position).getRecipe().getName() + " was deleted.", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -133,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
     @Override
     public void onFinishAddDialog(RecipeWithIngredients recipeWithIngredients) {
         recipeAdapter.addNewRecipe(recipeWithIngredients);
+        Toast.makeText(getApplicationContext(), recipeWithIngredients.getRecipe().getName() + " was added to recipe list.", Toast.LENGTH_SHORT).show();
     }
 
 
