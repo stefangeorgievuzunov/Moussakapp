@@ -29,7 +29,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
     private List<RecipeWithIngredients> recipesList;
     private Repository repository;
     private ViewRecipeDialogInterface viewRecipeDialogInterface;
-    private Context context;
 
     public RecipeAdapter(List<RecipeWithIngredients> recipes, Repository repository) {
         this.repository = repository;
@@ -40,7 +39,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         viewRecipeDialogInterface = (ViewRecipeDialogInterface) parent.getContext();
-        context=parent.getContext();
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View recipeView = inflater.inflate(R.layout.recipe_item, parent, false);

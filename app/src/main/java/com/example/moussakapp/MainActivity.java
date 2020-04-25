@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
                 recipeAdapter.changeItemViewBgColor((RecipeViewHolder) viewHolder, Color.WHITE);
 
                 try {
-                    recipeAdapter.deleteRecipe(recipes.get(position));
                     Toast.makeText(getApplicationContext(), recipes.get(position).getRecipe().getName() + " was deleted.", Toast.LENGTH_SHORT).show();
+                    recipeAdapter.deleteRecipe(recipes.get(position));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

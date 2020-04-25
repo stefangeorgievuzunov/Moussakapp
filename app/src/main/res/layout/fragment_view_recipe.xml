@@ -15,7 +15,7 @@
             android:id="@+id/recipeTitleVF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recipe Info"
+            android:text="recipe info"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
