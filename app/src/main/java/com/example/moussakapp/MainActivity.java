@@ -1,6 +1,4 @@
 package com.example.moussakapp;
-
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -89,10 +87,10 @@ public class MainActivity extends AppCompatActivity implements AddRecipeDialogIn
                 recipeAdapter.changeItemViewBgColor((RecipeViewHolder) viewHolder, Color.WHITE);
 
                 try {
-                    recipeAdapter.deleteRecipe(recipes.get(position));
-                    recipes.remove(position);
-                    recipeAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(), recipes.get(position).getRecipe().getName() + " was deleted.", Toast.LENGTH_SHORT).show();
+                    recipeAdapter.deleteRecipe(recipes.get(position));
+//                    recipes.remove(position);
+//                    recipeAdapter.notifyDataSetChanged();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

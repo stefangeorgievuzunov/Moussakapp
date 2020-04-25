@@ -87,16 +87,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
     };
 
     public void addNewRecipe(RecipeWithIngredients recipeWithIngredients) {
-        recipeWithIngredients.getIngredients().forEach(i->System.out.println(recipeWithIngredients.getRecipe().getName()+"AFTER ->"+i.getName()));
         repository.insertRecipe(recipeWithIngredients);
         recipesList.add(recipeWithIngredients);
-        //recipesList = loadAllRecipes();
-        loadAllRecipes().forEach(r->r.getIngredients().forEach(i->System.out.println(r.getRecipe().getName()+"LATTEST->"+i.getName())));
+        notifyDataSetChanged();
     }
 
     public void deleteRecipe( RecipeWithIngredients recipeWithIngredients) {
         repository.deleteRecipe(recipeWithIngredients);
-        recipesList = loadAllRecipes();
+        recipesList.remove(recipeWithIngredients);
+        notifyDataSetChanged();
     }
 
     public void changeItemViewBgColor(@NonNull final RecipeViewHolder holder, final int color) {
@@ -115,11 +114,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> implem
     private List<RecipeWithIngredients> loadSearch(String search) {
         List<RecipeWithIngredients> returned = new ArrayList<>();
         List<String> searchedData = Arrays.asList(search.toLowerCase().split(",\\s*"));
-        loadAllRecipes().forEach(r -> r.getIngredients().forEach(i -> {
-            if (searchedData.contains(i.getName())) {
-                returned.add(r);
+
+        for (RecipeWithIngredients r:loadAllRecipes()){
+            for (Ingredient i:r.getIngredients()){
+                if (searchedData.contains(i.getName())) {
+                    returned.add(r);
+                    break;
+                }
             }
-        }));
+        }
+
         return returned;
     }
 
