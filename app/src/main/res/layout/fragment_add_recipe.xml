@@ -5,34 +5,34 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context=".fragments.AddRecipeFragment"
-    android:padding="10dp">
+    android:padding="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="560dp"
         android:padding="0dp">
 
         <TextView
             android:id="@+id/invalidFormat"
-            android:layout_width="209dp"
-            android:layout_height="41dp"
-            android:layout_marginTop="48dp"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="45dp"
             android:layout_marginEnd="1dp"
             android:text="Invalid format, please follow the example"
             android:textColor="#CE0F0F"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/recipeIngredientsFragment"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.375"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/recipeNameFragment" />
 
         <EditText
             android:id="@+id/recipeNameFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:layout_marginBottom="10dp"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="41dp"
             android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="Name"
@@ -40,16 +40,16 @@
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/invalidFormat"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/recipeTitleVF" />
 
         <EditText
             android:id="@+id/recipeIngredientsFragment"
-            android:layout_width="212dp"
-            android:layout_height="97dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="19dp"
+            android:layout_width="0dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="Ingredients.Example:\n500 g sugar\n1 kg salt"
@@ -59,14 +59,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/invalidFormat"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="@+id/invalidFormat" />
 
         <EditText
             android:id="@+id/recipeDescriptionFragment"
-            android:layout_width="213dp"
-            android:layout_height="92dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="0dp"
+            android:layout_height="127dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="Description"
@@ -75,19 +75,21 @@
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recipeIngredientsFragment" />
 
         <TextView
             android:id="@+id/recipeTitleVF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="18dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="11dp"
             android:text="Recipe Info"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/recipeNameFragment"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -95,24 +97,28 @@
             android:id="@+id/addNewRecipeFragment"
             android:layout_width="80dp"
             android:layout_height="37dp"
-            android:layout_marginTop="151dp"
+            android:layout_marginTop="159dp"
+            android:layout_marginBottom="32dp"
             android:background="@color/colorPrimary"
             android:text="Add"
             android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
-            android:layout_width="208dp"
-            android:layout_height="137dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="0dp"
+            android:layout_height="121dp"
+            android:layout_marginTop="142dp"
             android:layout_marginEnd="2dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/addNewRecipeFragment"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recipeDescriptionFragment">
+            app:layout_constraintTop_toTopOf="@+id/recipeDescriptionFragment">
 
             <ImageView
                 android:id="@+id/recipeImageFragment"

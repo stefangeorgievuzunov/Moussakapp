@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,9 @@ public class ViewRecipeFragment extends DialogFragment {
         recipeImage = view.findViewById(R.id.recipeImageVF);
         recipeIngradients = view.findViewById(R.id.recipeIngredientsVF);
         recipeDescription = view.findViewById(R.id.recipeDescriptionVF);
+
+        recipeIngradients.setMovementMethod(new ScrollingMovementMethod());
+        recipeDescription.setMovementMethod(new ScrollingMovementMethod());
 
         loadRecipeViewData();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);

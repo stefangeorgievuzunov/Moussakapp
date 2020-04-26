@@ -8,6 +8,7 @@ public class RecipeGallery {
 
     public final static List<String> getAllUrls() {
         return Arrays.asList(
+                "https://kulinari.bg/wp-content/uploads/2016/10/%D0%BA%D0%BB%D0%B0%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0-%D0%BC%D1%83%D1%81%D0%B0%D0%BA%D0%B0.jpg",
                 "https://images.unsplash.com/photo-1512010151537-2cf5c638ad51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
                 "https://images.unsplash.com/photo-1505253668822-42074d58a7c6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
                 "https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=631&q=80",
